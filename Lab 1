@@ -1,0 +1,134 @@
+import java.util.Scanner;   //Импортируем библиотеку Scanner
+
+//Класс Person
+class Person {
+    public String name;
+    public int age;         //В годах
+    public String model;    //Модель телефона
+    public String number;   //Номер телефона
+
+    Scanner scan = new Scanner(System.in);  //Создаем объект класса Scanner для ввода данных с консоли
+
+    public static int counter = 0;  //Счетчик для подсчета количества экземпляров
+
+    //Конструктор по умолчанию
+    /*Person() {
+        this.name = "Your name";
+        this.age = 0;
+        this.model = "iphone";
+        this.number = "+70000000000";
+        counter++;
+    }*/
+
+    //Конструктор (явный)
+    public Person(String name, int age, String model, String number) {
+        this.name = name;
+        this.age = age;
+        this.model = model;
+        this.number = number;
+        counter++;
+    }
+
+    //Конструктор с вводом данных из консоли
+    public Person() {
+        System.out.print("Enter name: ");
+        this.name = scan.next();
+        System.out.print("Enter age: ");
+        this.age = scan.nextInt();
+        System.out.print("Enter model of your phone: ");
+        this.model = scan.next();
+        System.out.print("Enter phone number: ");
+        this.number = scan.next();
+        while(!this.check()){
+            System.out.println("Wrong number! Enter your number again: ");
+            this.number = scan.next();
+        }
+        counter++;
+    }
+
+    //Метод проверяющий номер телефона
+    public boolean check() {
+        char[] numChar = number.toCharArray();  //Создаем массив символов состоящий из цифр номера телефона
+        int counter = 0;                        //Счетчик для подсчета цифр в номере
+        if(numChar.length == 11 && numChar[0] == '8') {  //Если длина номера равна 11 и первая цифра - 8, то 
+            for(int i = 0; i < 11; i++) {                //Запускается цикл for, который проверяет 
+                if(checkNum(numChar[i])){                //Является ли символ - цифрой
+                    counter++;                           //Если символ - цифра, счетчик увеличивааетсчя на 1
+                }
+            }
+        } else if (numChar.length == 12 && numChar[0] == '+' && numChar[1] == '7') {    //Иначе, если длина номера равна 12 и первый символ "+", а второй 7, то 
+            for(int i = 1; i < 12; i++) {                                               //Запускается цикл for, который проверяет
+                if(checkNum(numChar[i])){                                               //Являются ли все символы - цифрой, кроме первого 
+                    counter++;                                                          //Если символ - цифра, счетчик увеличивааетсчя на 1
+                }
+            }
+        }
+        return counter == 11;     //Если счетчик равен 11, метод возвращает значение true, иначе false                                                      
+    }
+
+    //Метод проверяет является ли символ - цифрой
+    public boolean checkNum(char num) {                    
+        for(int i = 0; i < 10; i++) {                   
+            if(Character.getNumericValue(num) == i) {   //Преобразуем символ в число и сравниваем его со всеми цифрами 
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override    //Переопределяем функцию equals(), для сравнения экземпляров класса Person
+    public boolean equals (Object obj){
+        if(this == obj) {   //Сравниваются два экземпляра
+            return true;
+        }
+
+        if(obj == null || getClass() != obj.getClass()){    //Если экземпляр obj является нулевым или срвниваемые типы объектов разные 
+            return false;                                   //Возвращается false
+        }
+
+        Person person = (Person) obj;   //Сравниваем поля экземпляров
+        return name.equals(person.name) && age == person.age && model.equals(person.model) && number.equals(person.number); //Если все поля одинаковы возвращается true иначе false
+    }
+
+   
+    //Метод вывода информации об экземпляре 
+    public void print(){
+        System.out.println();
+        System.out.println("name - " + this.name );
+        System.out.println("age - " + this.age + " years");
+        System.out.println("model of phone - " + this.model );
+        System.out.println("phone number - " + this.number );
+        System.out.println();
+        System.out.print("Do you want to change your number?(yes - '1', no - '0')");
+        int choice = scan.nextInt();    //Переменная которая принимает выбор пользователя
+        if(choice == 1) {               //Если choice = 1, то запускаетсчя метод изменения номера
+            this.changeNumber();
+        }
+        System.out.println("-------------------------");
+    }
+
+    //Метод смены номера 
+    public void changeNumber(){
+        System.out.print("Enter new number: ");
+        this.number = scan.next();
+        while(!this.check()){   //Запускается цикл, который проверяет правильность введенного номера
+            System.out.println("Wrong number! Enter your number again: ");
+            this.number = scan.next();
+        }
+    }
+}
+
+public class Lab1 {
+    public static void main(String[] args) {
+        Person vasya = new Person();    //Создаем экземпляр Вася
+        vasya.print();
+        Person petya = new Person("Петя", 30, "Samsung", "+78796140540");   //Создаем экземпляр Петя
+        petya.print();
+        Person dima = new Person();     //Создаем экземпляр Дима
+        dima.print();
+        Person kolya = new Person();    //Создаем экземпляр Коля
+        kolya.print();
+        System.out.println("Objects vasya and petya are equals: " + vasya.equals(petya));    //Сравниваем экземпляры Вася и Петя 
+        System.out.println("Number of Objects: " + Person.counter);     //Вывод числа объектов 
+    }
+}
