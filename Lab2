@@ -1,0 +1,87 @@
+import java.util.Scanner;       //импортируем библиотеку для ввода данных
+import java.util.Arrays;        //импортиуем библиотеку для работы с массивами
+
+
+public class Lab2 {
+    public static void main (String[] str) {
+        Scanner scn = new Scanner(System.in);       //создаем объект класса Scanner
+        System.out.print("Enter your number:");
+        int num = scn.nextInt();                    //переменная, принимающая значение, веденного пользователм числа
+        while(num < 1) {                            //проверка корректности введенного числа
+            System.out.print("Wrong data! Please enter your number again:");
+            num = scn.nextInt();
+        }
+        long[] arr = fib(num);                       //инициализируем массив, который принимает возвращаемый функцией fib() массив состоящий из чисел Фибоначчи
+        for (long value : arr) {                     //выводим массив arr
+            System.out.print(value);
+            System.out.print(", ");
+        }
+        System.out.println("");
+        System.out.println("________________________________________________________");
+
+        for(int i = 1; i <= 5; i++){                //создаем цикл фор, который проходит по значениям оператора switch
+            switch (i){
+                case 1:
+                    System.out.println("Секция номер:1");
+                    //break;
+                case 2:
+                    System.out.println("Секция номер:2");
+                    //break;
+                case 3:
+                    System.out.println("Секция номер:3");
+                    //break;
+                case 4:
+                    System.out.println("Секция номер:4");
+                    //break;
+                case 5:
+                    System.out.println("Секция номер:5");
+                    //break;
+            }//Если мы будем использовать в операторе switch - break, то будет выполняться команда только заданной секции
+             //А если убрать оператор break, то будет выполняться команда в заданной секции и во всех, что идут после нее.
+        }
+        System.out.println("________________________________________________________");
+
+        char[] kChar, checkChar;            //создаем массивы символов, которые будут содержать проверяемое число и перемноженные его двухзначные компоненты
+        String kStr, checkStr;
+        int k;
+        for(int i = 10; i < 100; i++) {        //создаем циклы for для перемножения всех двузначных чисел
+            for(int j = i; j < 100; j++) {
+
+                k = i * j;
+
+                kStr = Integer.toString(k);   //переводим число k в строку
+                checkStr = Integer.toString(i) + Integer.toString(j);   //переводим i и j в строку и складываем их (получаем 4-х значное число)
+
+                kChar = kStr.toCharArray();   //переводим k из строки в массив символов
+                checkChar = checkStr.toCharArray();
+
+                Arrays.sort(kChar);         //сортируем получеенные массивы символов
+                Arrays.sort(checkChar);
+
+                if(Arrays.equals(kChar, checkChar) ) {      //проверяем являются ли массивы одинаковыми
+                    System.out.println(i + " * " + j + " = " + k);
+                }
+            }
+        }
+    }
+     public static long[] fib(int num){      //функция, которая возвращает массив с определенным количестом чисел Фибоначчи
+        long[] fibNum = new long[num];        //создаем массив, содержащий num кол-во элементов
+        fibNum[0] = 1;
+        if(num == 1)
+            return fibNum;
+        fibNum[1] = 1;
+        if(num == 2)
+            return fibNum;
+        int index = 2;
+        for(int i = 2; fibNum[num - 1] == 0; i++) {     //проверяем являются ли числа - числами Фибоначчи и если да, то добавляем их в массив
+            if(fibNum[index - 2] + fibNum[index - 1] == i) {
+                fibNum[index] = i;
+                index++;
+            }
+        }
+        return fibNum;
+    }
+}
+
+
+
