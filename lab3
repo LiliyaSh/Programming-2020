@@ -1,0 +1,120 @@
+import java.util.Scanner;
+
+class Flower{
+    String name = "Lili";
+    int numOfLeaves;
+    int numOfPetals;
+
+    Flower(){
+        numOfLeaves = 7;
+        numOfPetals = 3;
+    }
+
+    Flower(int numOfPetals) {
+        numOfLeaves = 7;
+        this.numOfPetals = numOfPetals;
+    }
+
+    Flower(int numOfLeaves ,int numOfPetals) {
+        this.numOfLeaves = numOfLeaves;
+        this.numOfPetals = numOfPetals;
+    }
+
+}
+
+class Dog{
+    String bark1;
+    int bark2;
+    char bark3;
+
+    Dog(String bark1, int bark2, char bark3){
+        this.bark1 = bark1;
+        this.bark2 = bark2;
+        this.bark3 = bark3;
+    }
+
+    void bark() {
+        System.out.println("Wooof wooooooof");
+    }
+
+    void bark(String bark1){
+        System.out.println(bark1);
+    }
+
+    void bark(int bark2){
+        if(bark2 == 0)
+            System.out.println("gav-gav");
+        else if(bark2 == 1)
+            System.out.println("afff-afff");
+        else
+            System.out.println("aaauuuuu");
+    }
+
+    void bark(char bark3) {
+        switch(bark3){
+            case 'r':
+                System.out.println("rrrrrrrrr");
+                break;
+            case 'm':
+                System.out.println("uuuu uuuu uuuu");
+                break;
+            case 'w':
+                System.out.println("wwaaaaff");
+                break;
+            default:
+                System.out.println("gav");
+        }
+    }
+}
+
+public class Lab3 {
+    public static void main(String[] str){
+        Scanner scn = new Scanner(System.in);
+        Flower flower1 = new Flower(100);
+        System.out.println(flower1.numOfPetals);
+        
+        System.out.println("____________________________________________________________________________________________");
+
+        Dog bars = new Dog("Gaaaav gav", 1, 'a');
+        bars.bark();
+        bars.bark(bars.bark1);
+        bars.bark(bars.bark2);
+        bars.bark(bars.bark3);
+
+        System.out.println("____________________________________________________________________________________________");
+
+        System.out.println("О какой валюте вы хотели бы узнать? (USD - 0, RUB - 1, EUR - 2, CNY - 3, GBP - 4, KRW - 5)");
+        int index = scn.nextInt();
+        Money[] money = Money.values();
+        switch (money[index]){
+            case USD:
+                System.out.println("USD - национальная валюта США, введена в 1792 году.");
+                break;
+            case RUB:
+                System.out.println("RUB - национальная валюта РФ. Является второй по древности валютой сохранившей свое название до наших дней.");
+                break;
+            case EUR:
+                System.out.println("EUR - национальная валюта Евросоюза, одна из самых стабильных валют в мире.");
+                break;
+            case CNY:
+                System.out.println("CNY - национальная валюта Китая, введене 1949 году.");
+                break;
+            case GBP:
+                System.out.println("GBP - национальная валюта Великобритании. Является самой старой валютой.");
+                break;
+            case KRW:
+                System.out.println("KRW - национальная валюта Южной Кореи. Введена в 1945 году.");
+                break;
+        }
+    }
+
+    enum Money{
+        USD,
+        RUB,
+        EUR,
+        CNY,
+        GBP,
+        KRW
+    }
+
+}
