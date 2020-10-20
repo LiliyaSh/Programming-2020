@@ -1,0 +1,30 @@
+import java.util.Scanner;
+
+public class Lab5.1 {
+    public static void main(String[] args) throws IOException {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Введите число a ");
+        int a = scan.nextInt();
+        System.out.println("Введите число b ");
+        int b = scan.nextInt();
+        int c;
+        int f;
+
+        System.out.println("поделим число a на число b");
+        try {
+            c = a / b;
+        } catch (Exception e) {
+            System.err.println("на ноль делить нельзя");
+            c = 0;
+        }
+        System.out.println("Результат: " + c);
+        System.out.println("поделим число b на число a");
+        try {
+            f = b / a;
+        } catch (ArithmeticException ae) {
+            System.err.println("на ноль делить нельзя");
+            f = 0;
+        }
+        System.out.println("Результат: " + f);
+     }
+}
