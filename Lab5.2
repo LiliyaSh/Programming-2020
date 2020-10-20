@@ -1,0 +1,46 @@
+import java.util.Scanner;
+import java.lang.Character;
+import java.io.*;
+
+
+public class Lab3 {
+    public static void main(String[] args) throws IOException {
+        Scanner scan = new Scanner(System.in);
+        
+        FileWriter writer = new FileWriter("C:\\Users\\79307\\Desktop\\test\\test.txt", false);
+
+        for (int i = 1; i <= 200; i++) {
+            writer.write(i + ": " + ((int) (Math.random() * 200)));
+            writer.append('\n');
+        }
+        writer.flush();
+        writer.close();
+
+        System.out.print("Введите индекс(от 1 до 200): ");
+        int index = scan.nextInt();
+
+        FileReader reader = new FileReader("C:\\Users\\79307\\Desktop\\test\\test.txt");
+        Scanner sc = new Scanner(reader);
+        int strInt;
+
+        while(sc.hasNextLine()) {
+            String str = sc.nextLine();
+            if(index == findIndex(str)) {
+                System.out.println("Число находящееся по индексу " + str);
+            }
+        }
+
+        reader.close();
+    }
+
+    public static int findIndex(String str) {
+        String newStr = "";
+        for(int i = 0; i < str.length(); i++) {
+            if(str.charAt(i) != ':')
+                newStr += str.charAt(i);
+            else
+                return Integer.parseInt(newStr);
+        }
+        return 0;
+    }
+}
