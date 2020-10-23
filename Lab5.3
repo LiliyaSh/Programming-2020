@@ -1,0 +1,33 @@
+import java.util.Scanner;
+import java.io.*;
+
+
+public class Lab5 {
+    public static void main(String[] args) throws IOException {
+        Scanner scan = new Scanner(System.in);
+
+        FileReader reader1 = new FileReader("C:\\Users\\79307\\Desktop\\test\\file1.txt");
+        Scanner sc1 = new Scanner(reader1);
+        String file1 = sc1.nextLine();
+        reader1.close();
+
+        FileReader reader2 = new FileReader("C:\\Users\\79307\\Desktop\\test\\file2.txt");
+        Scanner sc2 = new Scanner(reader2);
+        String file2 = sc2.nextLine();
+        reader2.close();
+
+        FileWriter writer1 = new FileWriter("C:\\Users\\79307\\Desktop\\test\\file1.txt", false);
+        writer1.write(reverseString(file2));
+        writer1.flush();
+        writer1.close();
+
+        FileWriter writer2 = new FileWriter("C:\\Users\\79307\\Desktop\\test\\file2.txt", false);
+        writer2.write(reverseString(file1));
+        writer2.flush();
+        writer2.close();
+    }
+
+    public static String reverseString(String str) {
+        return new StringBuilder(str).reverse().toString();
+    }
+}
