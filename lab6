@@ -1,0 +1,51 @@
+import java.util.Scanner;
+
+public class Main {
+    public static String[] underTwenty = {"", " one", " two", " three", " four", " five",
+            " six", " seven", " eight", " nine", " ten",
+            " eleven", " twelve", " thirteen", " fourteen"," fifteen",
+            " sixteen", " seventeen", " eighteen", " nineteen"};
+
+    public static String[] tens = {"", " ten", " twenty", " thirty", " forty", " fifty", " sixty", " seventy", " eighty", " ninety"};
+
+    public static String[] anotherNumbers = {" quintillion", " quadrillion", " trillion", " billion", " million", " thousand", ""};
+
+    public static void main(String[] args) {
+        Scanner scn = new Scanner(System.in);
+        System.out.print("Ведите число: ");
+        long number = scn.nextLong();
+        convert(number);
+    }
+
+    public static void convert(long number) {
+        String finalString = "";
+        int length = Long.toString(number).length();
+        int numOfTriads;
+        if(length % 3 == 0) {
+            numOfTriads = length / 3;
+        } else {
+            numOfTriads = length / 3 + 1;
+        }
+        for(int i = numOfTriads, j = 0; i > 0; i--, j++) {
+            finalString = convertTriad((int) (number % 1000)) + anotherNumbers[6 - j] + finalString;
+            number /= 1000;
+        }
+        System.out.println(finalString);
+    }
+
+    public static String convertTriad(int triad) {
+        String num;
+        if (triad % 100 < 20) {
+            num = underTwenty[triad % 100];
+            triad /= 100;
+        } else {
+            num = underTwenty[triad % 10];
+            triad /= 10;
+
+            num = tens[triad % 10] + num;
+            triad /= 10;
+        }
+        if (triad == 0) return num;
+        return underTwenty[triad] + " hundred" + num;
+    }
+}
